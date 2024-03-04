@@ -3,7 +3,7 @@
 ## Descripción de la aplicación
 
 * Resumen: el software que se publica en este repositorio permite
-  [aproximar el número Pi mediante simulación de forma recursiva](https://www.youtube.com/watch?v=ELetCV_wX_c)
+  [aproximar el número Pi mediante simulación a través de expresiones lambda](https://www.youtube.com/watch?v=ELetCV_wX_c)
 * Versión: 1.0.
 
 ## Compilación del programa
