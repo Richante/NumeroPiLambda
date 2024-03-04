@@ -1,38 +1,35 @@
-/**
- * Proporciona métodos para el cálculo del número PI mediante el método de Montecarlo.
- */
 package mates;
 
 import java.util.Random;
 
 /**
- * La clase Matematicas contiene métodos para realizar cálculos del número PI utilizando el método de Montecarlo.
+ * La clase Matematicas contiene el método generarNumeroPiExpresionesLambda que genera una
+ * aproximación al número PI mediante el método de Montecarlo utilizando expresiones lambda.
  */
 
-public class Matematicas {
-
+public class Matematicas{
     /**
- * Genera una aproximación al número PI de manera recursiva mediante el método de Montecarlo.
- *
- * @param pasos La cantidad de iteraciones para el cálculo.
- * @param puntosDentroCirculo La cantidad de puntos generados que caen dentro del círculo.
- * @param puntosGenerados La cantidad total de puntos generados.
- * @return La aproximación al número PI.
- */
-    
-    public static double generarNumeroPiRecursivo(long pasos, int puntosDentroCirculo, int puntosGenerados) {
-        
-        if (puntosGenerados == pasos) {
-            return 4.0 * puntosDentroCirculo / puntosGenerados;
-        }
-        Random random = new Random();
-        double x = random.nextDouble();
-        double y = random.nextDouble();
-        if (x * x + y * y <= 1) {
-            return generarNumeroPiRecursivo(pasos, puntosDentroCirculo + 1, puntosGenerados + 1);
-        } else {
-            return generarNumeroPiRecursivo(pasos, puntosDentroCirculo, puntosGenerados + 1);
-        }
-    }
-    }
+     * * Genera una aproximación al número Pi mediante el método de
+     * * Montecarlo. El parámetro `pasos` indica el número de puntos
+     * * generado.
+     * */
+    public static double generarNumeroPiExpresionesLambda(long pasos){
 
+        try{
+            Random rand = new Random();
+
+            long aciertos = rand.longs(pasos)
+                                 .parallel() // Ejecución en paralelo
+                                 .filter(i -> { // Filtra los puntos mediante una expresión lambda
+                                     double x = rand.nextDouble();
+                                     double y = rand.nextDouble();
+                                     return Math.pow(x - 0.5, 2) + Math.pow(y - 0.5, 2) <= 0.25;
+                                 })
+                                 .count(); // Cuenta los puntos que han pasado el filtro
+    
+            return 4.0 * aciertos / pasos;
+        }catch(Exception e){ // Captura cualquier excepción que se produzca en caso de fallo
+            throw new RuntimeException("No se ha podido generar el Pi");
+        }
+    }
+}
