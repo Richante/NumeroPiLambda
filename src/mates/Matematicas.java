@@ -19,7 +19,6 @@ public class Matematicas{
             Random rand = new Random();
 
             long aciertos = rand.longs(pasos)
-                                 .parallel() // Ejecución en paralelo
                                  .filter(i -> { // Filtra los puntos mediante una expresión lambda
                                      double x = rand.nextDouble();
                                      double y = rand.nextDouble();
